@@ -795,24 +795,18 @@
             transform: none !important;
         }
 
-        .ai-btn-openai {
-            background: linear-gradient(135deg, #00a67e 0%, #00c896 100%);
-            color: white;
-            box-shadow: 0 6px 20px rgba(0, 166, 126, 0.3);
-        }
+        /* removido estilo openai */
 
-        .ai-btn-openai:hover {
-            box-shadow: 0 10px 30px rgba(0, 166, 126, 0.4);
-        }
+        /* removido hover openai */
 
         .ai-btn-google {
-            background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+            background: linear-gradient(135deg, #2b2d42 0%, #34a853 100%);
             color: white;
-            box-shadow: 0 6px 20px rgba(66, 133, 244, 0.3);
+            box-shadow: 0 6px 20px rgba(52, 168, 83, 0.3);
         }
 
         .ai-btn-google:hover {
-            box-shadow: 0 10px 30px rgba(66, 133, 244, 0.4);
+            box-shadow: 0 10px 30px rgba(52, 168, 83, 0.4);
         }
 
         .ai-response {
@@ -842,13 +836,10 @@
             animation: fadeInUp 0.6s ease;
         }
 
-        .ai-answer.from-chatgpt {
-            border-left: 4px solid #00a67e;
-            padding-left: 16px;
-        }
+        /* removido estilo de chatgpt */
 
         .ai-answer.from-gemini {
-            border-left: 4px solid #4285f4;
+            border-left: 4px solid #34a853;
             padding-left: 16px;
         }
 
@@ -1128,8 +1119,8 @@
                 <div class="section-content" id="contact">
                     <div class="contact-info">
                         <p><strong>📧 Email:</strong> <a href="mailto:cleberluiz.profissional@gmail.com">cleberluiz.profissional@gmail.com</a></p>
-                        <p><strong>📞 WhatsApp:</strong> (21) 99494-5474 (recado - Marcos)</p>
-                        <p><strong>🌐 Site:</strong> <a href="http://www.conexaobuzios.com" target="_blank">conexaobuzios.com</a></p>
+                        <p><strong>📞 WhatsApp (recado - Conexão Búzios):</strong> (22) 99758-8610</p>
+                        <p><strong>🌐 Site:</strong> <a href="https://www.conexaobuzios.com" target="_blank" rel="noopener noreferrer">conexaobuzios.com</a></p>
                         <p><strong>📍 Localização:</strong> Búzios, Capão - RJ</p>
                         <p><strong>🚗</strong> Tenho CNH B e veículo próprio</p>
                         <p><strong>🌍 Idiomas:</strong> Inglês e Espanhol intermediário</p>
@@ -1170,7 +1161,7 @@
             <div class="ai-chat-section" id="ai-chat-section">
                 <div class="ai-header">
                     <h3>🤖 Pergunte à IA sobre o Cleber</h3>
-                    <p>ChatGPT e Gemini prontos para responder suas dúvidas</p>
+                    <p>Conexão.AI pronto para responder suas dúvidas</p>
                 </div>
                 
                 <div class="ai-input-container">
@@ -1180,11 +1171,9 @@
                         placeholder="Ex: Cleber tem experiência em atendimento?"
                         class="ai-input"
                     >
-                    <button id="ask-chatgpt" class="ai-btn ai-btn-openai" type="button" onclick="perguntarIA('chatgpt')">
-                        <span>🧠</span> ChatGPT
-                    </button>
+                    <!-- Removido ChatGPT para usar apenas Conexão.AI (Gemini) -->
                     <button id="ask-gemini" class="ai-btn ai-btn-google" type="button" onclick="perguntarIA('gemini')">
-                        <span>💎</span> Gemini
+                        <span>⚡</span> Conexão.AI
                     </button>
                 </div>
 
@@ -1210,7 +1199,7 @@
     <!-- BOTÃO FLUTUANTE IA -->
     <div class="floating-ai-btn" id="floating-ai-btn">
         <span>🤖</span>
-        <div class="ai-tooltip">Perguntar à IA</div>
+        <div class="ai-tooltip">Perguntar à Conexão.AI</div>
     </div>
 
     <div class="toast-feedback" id="toast-feedback"></div>
@@ -1219,10 +1208,6 @@
     <script>
         // ===== CONFIGURAÇÃO DAS APIs DE IA =====
         const AI_CONFIG = {
-            chatgpt: {
-                apiKey: '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',
-                endpoint: 'https://api.openai.com/v1/chat/completions'
-            },
             gemini: {
                 apiKey: 'AIzaSyBlOiC0sqSE-CjJ4wDBIj34DKit1NgoAV4',
                 endpoint: 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent'
@@ -1232,46 +1217,8 @@
         // Disponibiliza a config no escopo global para fallback
         try { if (typeof window !== 'undefined') { window.AI_CONFIG = window.AI_CONFIG || AI_CONFIG; } } catch (_) {}
 
-        // Função para integração com ChatGPT
-        async function consultarChatGPT(pergunta) {
-            try {
-                const response = await fetch(AI_CONFIG.chatgpt.endpoint, {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${AI_CONFIG.chatgpt.apiKey}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        model: "gpt-4o-mini",
-                        messages: [
-                            {
-                                role: "system",
-                                content: "Você é um assistente que responde sobre Cleber Mantuano, profissional versátil com experiência em atendimento, tecnologia, gestão e marketing. Seja direto e útil."
-                            },
-                            {
-                                role: "user",
-                                content: pergunta
-                            }
-                        ],
-                        max_tokens: 200,
-                        temperature: 0.7
-                    })
-                });
-                
-                if (!response.ok) {
-                    try {
-                        const err = await response.json();
-                        throw new Error(err?.error?.message || `HTTP ${response.status}`);
-                    } catch (_) {
-                        throw new Error(`HTTP ${response.status}`);
-                    }
-                }
-                const data = await response.json();
-                return data?.choices?.[0]?.message?.content || "";
-            } catch (error) {
-                return "";
-            }
-        }
+        // ChatGPT desativado a pedido — mantendo stub para compatibilidade
+        async function consultarChatGPT(pergunta) { return ""; }
 
         // Função para integração com Gemini
         async function consultarGemini(pergunta) {
@@ -1286,7 +1233,7 @@
                             {
                                 parts: [
                                     {
-                                        text: `Contexto: Você está respondendo sobre Cleber Mantuano, profissional versátil com experiência em atendimento, tecnologia, gestão e marketing digital. Responda de forma concisa e útil.\n\nPergunta: ${pergunta}`
+                                        text: `Você é Conexão.AI, assistente do site de Cleber Mantuano. Responda em PT-BR, com clareza e honestidade, sempre dentro do contexto do site. Quando útil, inclua contatos: Email: cleberluiz.profissional@gmail.com | WhatsApp (recado - Conexão Búzios): (22) 99758-8610 | Site: conexaobuzios.com.\n\n${pergunta}`
                                     }
                                 ]
                             }
@@ -1564,7 +1511,6 @@
 
         // Atalho para testar IAs (opcional - remover em produção)
         window.testarIA = {
-            chatgpt: consultarChatGPT,
             gemini: consultarGemini
         };
 
@@ -1600,7 +1546,7 @@
         function showAIProcessing(source) {
             const container = document.getElementById('ai-response');
             if (!container) return;
-            const sourceName = source === 'chatgpt' ? 'ChatGPT' : source === 'gemini' ? 'Gemini' : 'Assistente Local';
+            const sourceName = source === 'gemini' ? 'Conexão.AI' : 'Assistente Local';
             container.innerHTML = `<div class="ai-loading">Consultando ${sourceName}<span class="loading-dots"></span></div>`;
         }
 
@@ -1608,46 +1554,14 @@
             const container = document.getElementById('ai-response');
             if (!container) return;
             const safe = escapeHtml(text);
-            const cls = source === 'chatgpt' ? 'from-chatgpt' : source === 'gemini' ? 'from-gemini' : 'from-local';
-            const sourceName = source === 'chatgpt' ? 'ChatGPT' : source === 'gemini' ? 'Gemini' : 'Assistente local';
+            const cls = source === 'gemini' ? 'from-gemini' : 'from-local';
+            const sourceName = source === 'gemini' ? 'Conexão.AI' : 'Assistente local';
             container.innerHTML = `<div class="ai-answer ${cls}" data-source="${sourceName} respondeu:">${safe}</div>`;
             try { container.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (_) {}
         }
 
-        // Fallback moderno para ChatGPT (mantém o existente, adiciona opção gpt-4o-mini)
-        async function consultarChatGPTModern(pergunta) {
-            try {
-                const response = await fetch(AI_CONFIG.chatgpt.endpoint, {
-                    method: 'POST',
-                    mode: 'cors',
-                    headers: {
-                        'Authorization': `Bearer ${AI_CONFIG.chatgpt.apiKey}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        model: 'gpt-4o-mini',
-                        messages: [
-                            { role: 'system', content: 'Você é um assistente que responde sobre Cleber Mantuano, profissional versátil com experiência em atendimento, tecnologia, gestão e marketing. Seja direto e útil.' },
-                            { role: 'user', content: pergunta }
-                        ],
-                        max_tokens: 250,
-                        temperature: 0.7
-                    })
-                });
-                if (!response.ok) {
-                    try {
-                        const err = await response.json();
-                        throw new Error(err?.error?.message || `HTTP ${response.status}`);
-                    } catch (_) {
-                        throw new Error(`HTTP ${response.status}`);
-                    }
-                }
-                const data = await response.json();
-                return data?.choices?.[0]?.message?.content || '';
-            } catch (e) {
-                return '';
-            }
-        }
+        // ChatGPT modern desativado a pedido — mantendo stub
+        async function consultarChatGPTModern(pergunta) { return ''; }
 
         // Fallback moderno para Gemini (gemini-1.5-flash)
         async function consultarGeminiFlash(pergunta) {
@@ -1679,10 +1593,8 @@
 
         function setAIButtonsBusy(busy) {
             try {
-                const askChatgptBtn = document.getElementById('ask-chatgpt');
                 const askGeminiBtn = document.getElementById('ask-gemini');
                 const aiInput = document.getElementById('ai-input');
-                if (askChatgptBtn) askChatgptBtn.disabled = !!busy;
                 if (askGeminiBtn) askGeminiBtn.disabled = !!busy;
                 if (aiInput) aiInput.disabled = !!busy;
             } catch (_) {}
@@ -1697,23 +1609,24 @@
             const q = (perguntaBruta || '').toLowerCase();
             const ctx = buildSiteContext();
             const pdf = extractCurriculoLink();
+            const contatos = 'Email: cleberluiz.profissional@gmail.com | WhatsApp (recado - Conexão Búzios): (22) 99758-8610 | Site: conexaobuzios.com';
             const has = (s) => q.includes(s);
             if (has('atend') || has('cliente') || has('venda')) {
-                return 'Sim. Ele tem experiência sólida em atendimento e vendas, incluindo loja, restaurante e bar, com organização de caixa e estoque.';
+                return `Sim. Ele tem experiência sólida em atendimento e vendas (loja, restaurante e bar), com organização de caixa e estoque. Contatos: ${contatos}`;
             }
             if (has('fibra') || has('internet') || has('rede') || has('roteador') || has('tecnolog')) {
-                return 'Sim. Ele instalou internet (fibra óptica), configurou redes e equipamentos, cria sites e automatiza processos.';
+                return `Sim. Ele instalou internet (fibra óptica), configurou redes e equipamentos, cria sites e automatiza processos. Contatos: ${contatos}`;
             }
             if (has('gest') || has('lider') || has('equipe') || has('organiza')) {
-                return 'Sim. Tem vivência em gestão e organização: liderança de equipe, estoque e logística.';
+                return `Sim. Vivência em gestão e organização: liderança de equipe, estoque e logística. Contatos: ${contatos}`;
             }
             if (has('marketing') || has('campanha') || has('google') || has('facebook') || has('instagram')) {
-                return 'Sim. Atuou com marketing digital (campanhas no Google, Facebook e Instagram) e desenvolvimento WordPress.';
+                return `Sim. Atuou com marketing digital (Google, Facebook, Instagram) e WordPress. Contatos: ${contatos}`;
             }
             if (has('currículo') || has('curriculo') || has('pdf') || has('baixar') || has('download')) {
-                return `Você pode baixar o currículo em PDF aqui: ${pdf}`;
+                return `Você pode baixar o currículo em PDF aqui: ${pdf}. Contatos: ${contatos}`;
             }
-            return `Resumo: ${ctx}\nSe quiser o currículo completo, acesse: ${pdf}`;
+            return `Resumo: ${ctx}\n${contatos}\nCurrículo em PDF: ${pdf}`;
         }
 
         async function perguntarIA(source) {
@@ -1730,19 +1643,7 @@
             const contexto = buildSiteContext();
             const perguntaComContexto = `Contexto do site: ${contexto}\n\nPergunta: ${perguntaUsuario}`;
 
-            const tryChat = async () => {
-                try {
-                    let a = '';
-                    try {
-                        a = await withTimeout(consultarChatGPT(perguntaComContexto), 20000);
-                    } catch (_) { a = ''; }
-                    if (!a || /erro|não consegui|http/i.test(a)) {
-                        try { a = await withTimeout(consultarChatGPTModern(perguntaComContexto), 20000); } catch (_) { a = ''; }
-                    }
-                    return a;
-                } catch (_) { return ''; }
-            };
-
+            // apenas Gemini como provedor remoto
             const tryGem = async () => {
                 try {
                     let a = '';
@@ -1758,14 +1659,8 @@
 
             try {
                 let answer = '';
-                let finalSource = source;
-                if (source === 'chatgpt') {
-                    answer = await tryChat();
-                    if (!answer) { answer = await tryGem(); if (answer) finalSource = 'gemini'; }
-                } else {
-                    answer = await tryGem();
-                    if (!answer) { answer = await tryChat(); if (answer) finalSource = 'chatgpt'; }
-                }
+                let finalSource = 'gemini';
+                answer = await tryGem();
 
                 if (!answer) {
                     finalSource = 'local';
@@ -1794,18 +1689,16 @@
 
         // Listeners dedicados à IA (mantém o DOMContentLoaded existente)
         document.addEventListener('DOMContentLoaded', function() {
-            const askChatgptBtn = document.getElementById('ask-chatgpt');
             const askGeminiBtn = document.getElementById('ask-gemini');
             const aiInput = document.getElementById('ai-input');
             const floatBtn = document.getElementById('floating-ai-btn');
 
-            if (askChatgptBtn && !askChatgptBtn.getAttribute('onclick')) askChatgptBtn.addEventListener('click', () => perguntarIA('chatgpt'));
             if (askGeminiBtn && !askGeminiBtn.getAttribute('onclick')) askGeminiBtn.addEventListener('click', () => perguntarIA('gemini'));
 
             if (aiInput) aiInput.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
                     e.preventDefault();
-                    perguntarIA('chatgpt');
+                    perguntarIA('gemini');
                 }
             });
 

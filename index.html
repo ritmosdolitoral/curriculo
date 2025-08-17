@@ -1267,7 +1267,7 @@
                     }
                 }
                 const data = await response.json();
-                return data?.choices?.[0]?.message?.content || "Desculpe, não consegui processar sua pergunta.";
+                return data?.choices?.[0]?.message?.content || "";
             } catch (error) {
                 return "";
             }
@@ -1307,7 +1307,7 @@
                     }
                 }
                 const data = await response.json();
-                return data?.candidates?.[0]?.content?.parts?.[0]?.text || "Desculpe, não consegui processar sua pergunta.";
+                return data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
             } catch (error) {
                 return "";
             }
@@ -1643,7 +1643,7 @@
                     }
                 }
                 const data = await response.json();
-                return data?.choices?.[0]?.message?.content || 'Desculpe, não consegui processar sua pergunta.';
+                return data?.choices?.[0]?.message?.content || '';
             } catch (e) {
                 return '';
             }
@@ -1671,7 +1671,7 @@
                     }
                 }
                 const data = await response.json();
-                return data?.candidates?.[0]?.content?.parts?.[0]?.text || 'Desculpe, não consegui processar sua pergunta.';
+                return data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
             } catch (e) {
                 return '';
             }

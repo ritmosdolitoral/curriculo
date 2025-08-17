@@ -1269,7 +1269,7 @@
                 const data = await response.json();
                 return data?.choices?.[0]?.message?.content || "Desculpe, não consegui processar sua pergunta.";
             } catch (error) {
-                return "Erro ao conectar com ChatGPT. Tente novamente.";
+                return "";
             }
         }
 
@@ -1309,7 +1309,7 @@
                 const data = await response.json();
                 return data?.candidates?.[0]?.content?.parts?.[0]?.text || "Desculpe, não consegui processar sua pergunta.";
             } catch (error) {
-                return "Erro ao conectar com Gemini. Tente novamente.";
+                return "";
             }
         }
 
@@ -1645,7 +1645,7 @@
                 const data = await response.json();
                 return data?.choices?.[0]?.message?.content || 'Desculpe, não consegui processar sua pergunta.';
             } catch (e) {
-                return 'Erro ao conectar com ChatGPT. Tente novamente.';
+                return '';
             }
         }
 
@@ -1673,7 +1673,7 @@
                 const data = await response.json();
                 return data?.candidates?.[0]?.content?.parts?.[0]?.text || 'Desculpe, não consegui processar sua pergunta.';
             } catch (e) {
-                return 'Erro ao conectar com Gemini. Tente novamente.';
+                return '';
             }
         }
 
